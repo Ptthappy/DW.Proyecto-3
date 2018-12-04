@@ -10,31 +10,48 @@ class pageEditor extends HTMLElement {
 			<style>
 				
 				#container {
-					background-color: black;
-					border : 5px solid black;
+					position: absolute;
+					background-color: rgba(100, 190, 0, 0.07);
+					border : 2px solid darkslateblue;
+					border-radius: 3px;
 					
-					width: 100%;
-					height: 100%;
+					width: 550px;
+					height: 320px;
+					top: 50px;
+					left: 10px;
 				}
 				
-				.btn-container {
-				  border: 2px dashed #e67e22;
-				  padding: 1.5em;
-				  text-align: center;
+				#top-bar {
+					position: absolute;
+					width: 100%;
+					height: 28px;
+					background-color: rgba(0, 0, 0, 0.5);
 				}
 				
 				.btn {
-				  background-color: #e67e22;
-				  border: 0;
-				  border-radius: 5px;
-				  color: white;
-				  padding: 1.5em;
-				  text-transform: uppercase;
+					background-color: rgba(0, 0, 0, 0.5);
+				  	border-radius: 2px;
+				  	color: white;
+				  	
+				  	position: absolute;
+				  	width: 95px;
+					height: 25px;
+					top: 60px;
+					left: 300px;
 				}
+				
+				#btn1 {
+									
+				}
+				
 			  </style>
 			  
 			  	<div id="container">
+			  		<div id="top-bar">
 			  		
+					</div>
+					
+					<button id="btn1" class="btn">Submit</button>
 				</div>
 			  
 			</style>
