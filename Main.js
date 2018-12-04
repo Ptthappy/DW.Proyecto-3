@@ -14,7 +14,6 @@ class pageEditor extends HTMLElement {
 					background-color: rgba(100, 190, 0, 0.07);
 					border : 2px solid darkslateblue;
 					border-radius: 3px;
-					
 					width: 340px;
 					height: 420px;
 					top: 50px;
@@ -60,6 +59,8 @@ class pageEditor extends HTMLElement {
 					left: 85px;
 					font-family: "Berlin Sans FB";
 					font-size: larger;
+					resize: none;
+					overflow: unset;
 				}
 				
 				#txt2 {
@@ -68,6 +69,8 @@ class pageEditor extends HTMLElement {
 					left: 85px;
 					font-family: "Berlin Sans FB";
 					font-size: larger;
+					resize: none;
+					overflow: unset;
 				}
 				
 				#txt3 {
@@ -76,6 +79,8 @@ class pageEditor extends HTMLElement {
 					left: 85px;
 					font-family: "Berlin Sans FB";
 					font-size: larger;
+					resize: none;
+					overflow: unset;
 				}
 				
 				#tf1 {
@@ -102,12 +107,53 @@ class pageEditor extends HTMLElement {
 					font-size: larger;
 				}
 				
+				#top {
+					position: absolute;
+					background-color: blue;
+					width: 99%;
+					height: 10px;
+					top: -6px;
+					left: 0.5%
+				}
+				
+				
+				#down {
+					position: absolute;
+					background-color: blue;
+					width: 99%;
+					height: 10px;
+					top: 100%;
+					left: 0.5%
+				}
+				
+				#left {
+					position: absolute;
+					background-color: blue;
+					width: 10px;
+					height: 105%;
+					top: -2%;
+					left: -6px;
+				}
+				
+				#right {
+					position: absolute;
+					background-color: blue;
+					width: 10px;
+					height: 105%;
+					top: -2%;
+					left: 99.3%;
+				}
+				
+				
 			  </style>
 			  
 			  	<div id="container">
-			  		<div id="top-bar">
+			  		<div id="top-bar"></div>
 			  		
-					</div>
+			  		<div id="top"></div>
+			  		<div id="down"></div>
+			  		<div id="left"></div>
+			  		<div id="right"></div>
 					
 					<button id="btn1" class="btn">Submit</button>
 					<textarea id="txt1" cols="25" rows="1"></textarea>
@@ -123,19 +169,39 @@ class pageEditor extends HTMLElement {
 			`;
 		let x1 = shadow.getElementById('container');
 		let x2 = shadow.getElementById('top-bar');
-		let isPress, antX, antY;
+		let x3 = shadow.getElementById('top');
+		let x4 = shadow.getElementById('down');
+		let x5 = shadow.getElementById('left');
+		let x6 = shadow.getElementById('right');
+		let isBarPress, antX, antY, overEdge;
+
+		x3.onclick = () => {
+			overEdge = true;
+		};
+
+		x4.onclick = () => {
+			overEdge = true;
+		};
+
+		x5.onclick = () => {
+			overEdge = true;
+		};
+
+		x6.onclick = () => {
+			overEdge = true;
+		};
+
 		x2.onmousedown = function(evt) {
-			isPress = true;
+			isBarPress = true;
 			antX = evt.clientX;
 			antY = evt.clientY;
 		};
 
 		onmouseup = function(evt) {
-			isPress = false;
+			isBarPress = false;
 		};
-
 		onmousemove = function(evt) {
-			if (isPress) {
+			if (isBarPress) {
 				let actX = evt.clientX;
 				let actY = evt.clientY;
 				let difX = actX - antX;
@@ -170,22 +236,8 @@ class pageEditor extends HTMLElement {
 			return position;
 		}
 
-		onmousedown = function(evt) {
-			if (evt.clientX < x1.style.top - 5 || evt.clientX > x1.style.top + 5 ||
-				evt.clientY < x1.style.left - 5 || evt.clientY > x1.style.left + 5 ||
-				evt.clientX < x1.style.top + x1.style.height - 5 || evt.clientX > x1.style.top + x1.style.height + 5 ||
-				evt.clientY <  x1.style.left + x1.style.width - 5 || evt.clientY >  x1.style.left + x1.style.width + 5) {
-				console.log('culo');
-			}
-
-		};
-
 
 	}
-
-
-
-
 
 }
 
