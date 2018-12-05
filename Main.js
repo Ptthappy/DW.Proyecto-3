@@ -289,13 +289,16 @@ class pageEditor extends HTMLElement {
 				antX = actX;
 				antY = actY;
 
+				let newDiv = x1;
 
-				let dimension = getPosition(x1);
+				let dimension = getDimentions(newDiv);
 
-				console.log('culo');
+				console.log(difX);
+				console.log(dimension[0] + difX);
+				console.log(dimension[0]);
 
-				x1.style.height = dimension[0] + difY;
-				x1.style.width = dimension[1] + difX;
+				newDiv.style.height = dimension[0] + difY + 'px';
+				newDiv.style.width = dimension[1] + difX + 'px';
 /*
 				if (dimension[0] + difY < 0)
 					newDiv.style.height = 0 + 'px';
