@@ -173,7 +173,7 @@ class pageEditor extends HTMLElement {
 		let x4 = shadow.getElementById('down');
 		let x5 = shadow.getElementById('left');
 		let x6 = shadow.getElementById('right');
-		let isBarPress, antX, antY, overEdge;
+		let isBarPress, antX, antY, overEdge, up, dw, lf, rg;
 
 		x3.onmousemove = evt => {
 			x3.style.cursor = 'n-resize';
@@ -181,6 +181,9 @@ class pageEditor extends HTMLElement {
 
 		x3.onmousedown = evt => {
 			overEdge = true;
+			up = true;
+			antX = evt.clientX;
+			antY = evt.clientY;
 		};
 
 		x4.onmousemove = evt => {
@@ -189,6 +192,9 @@ class pageEditor extends HTMLElement {
 
 		x4.onmousedown = evt => {
 			overEdge = true;
+			dw = true;
+			antX = evt.clientX;
+			antY = evt.clientY;
 		};
 
 		x5.onmousemove = evt => {
@@ -207,6 +213,9 @@ class pageEditor extends HTMLElement {
 
 		x5.onmousedown = evt => {
 			overEdge = true;
+			lf = true;
+			antX = evt.clientX;
+			antY = evt.clientY;
 		};
 
 		x6.onmousemove = evt => {
@@ -225,6 +234,9 @@ class pageEditor extends HTMLElement {
 
 		x6.onmousedown = evt => {
 			overEdge = true;
+			rg = true;
+			antX = evt.clientX;
+			antY = evt.clientY;
 		};
 
 		x2.onmousedown = function(evt) {
@@ -236,6 +248,10 @@ class pageEditor extends HTMLElement {
 		onmouseup = function(evt) {
 			isBarPress = false;
 			overEdge = false;
+			up = false;
+			dw = false;
+			lf = false;
+			rg = false;
 		};
 		onmousemove = function(evt) {
 			if (isBarPress) {
@@ -273,23 +289,26 @@ class pageEditor extends HTMLElement {
 				antX = actX;
 				antY = actY;
 
-				let newDiv = x1;
-				let position = getPosition(newDiv);
 
-				newDiv.style.top = (position[0] + difY) + 'px';
-				newDiv.style.left = (position[1] + difX) + 'px';
+				let dimension = getPosition(x1);
 
-				if (position[0] + difY < 0)
-					newDiv.style.top = 0 + 'px';
+				console.log('culo');
 
-				else
-					newDiv.style.top = (position[0] + difY) + 'px';
-
-				if (position[1] + difX < 0)
-					newDiv.style.left = 0 + 'px';
+				x1.style.height = dimension[0] + difY;
+				x1.style.width = dimension[1] + difX;
+/*
+				if (dimension[0] + difY < 0)
+					newDiv.style.height = 0 + 'px';
 
 				else
-					newDiv.style.left = (position[1] + difX) + 'px';
+					newDiv.style.height = (dimension[0] + difY) + 'px';
+
+				if (dimension[1] + difX < 0)
+					newDiv.style.width = 0 + 'px';
+
+				else
+					newDiv.style.width = (dimension[1] + difX) + 'px';
+*/
 			}
 		};
 
@@ -298,6 +317,13 @@ class pageEditor extends HTMLElement {
 			position[0] = parseInt(document.defaultView.getComputedStyle(element, null).getPropertyValue('top'));
 			position[1] = parseInt(document.defaultView.getComputedStyle(element, null).getPropertyValue('left'));
 			return position;
+		}
+
+		function getDimentions(element) {
+			let dim = new Array(2);
+			dim[0] = parseInt(document.defaultView.getComputedStyle(element, null).getPropertyValue('height'));
+			dim[1] = parseInt(document.defaultView.getComputedStyle(element, null).getPropertyValue('width'));
+			return dim;
 		}
 
 
