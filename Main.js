@@ -213,6 +213,18 @@ class pageEditor extends HTMLElement {
 
 		x5.onmousedown = evt => {
 			overEdge = true;
+
+			let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
+			let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
+
+			if (evt.clientY < i + 10 && evt.clientY > i - 10)
+				up = true;
+
+			else if (evt.clientY > i + j - 20 && evt.clientY < i + j + 20)
+				dw = true;
+
+			rg = true;
+
 			lf = true;
 			antX = evt.clientX;
 			antY = evt.clientY;
@@ -234,6 +246,15 @@ class pageEditor extends HTMLElement {
 
 		x6.onmousedown = evt => {
 			overEdge = true;
+			let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
+			let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
+
+			if (evt.clientY < i + 10 && evt.clientY > i - 10)
+				up = true;
+
+			else if (evt.clientY > i + j - 20 && evt.clientY < i + j + 20)
+				dw = true;
+
 			rg = true;
 			antX = evt.clientX;
 			antY = evt.clientY;
@@ -297,8 +318,15 @@ class pageEditor extends HTMLElement {
 				console.log(dimension[0] + difX);
 				console.log(dimension[0]);
 
-				newDiv.style.height = dimension[0] + difY + 'px';
-				newDiv.style.width = dimension[1] + difX + 'px';
+				if (up || dw) {
+					newDiv.style.height = dimension[0] + difY + 'px';
+				}
+
+				if (lf || rg) {
+					newDiv.style.width = dimension[1] + difX + 'px';
+				}
+
+
 /*
 				if (dimension[0] + difY < 0)
 					newDiv.style.height = 0 + 'px';
