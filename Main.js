@@ -109,7 +109,7 @@ class pageEditor extends HTMLElement {
 				
 				#top {
 					position: absolute;
-					background-color: blue;
+					background-color: rgba(0, 0, 0, 0);
 					width: 99%;
 					height: 10px;
 					top: -6px;
@@ -119,7 +119,7 @@ class pageEditor extends HTMLElement {
 				
 				#down {
 					position: absolute;
-					background-color: blue;
+					background-color: rgba(0, 0, 0, 0);
 					width: 99%;
 					height: 10px;
 					top: 100%;
@@ -128,7 +128,7 @@ class pageEditor extends HTMLElement {
 				
 				#left {
 					position: absolute;
-					background-color: blue;
+					background-color: rgba(0, 0, 0, 0);
 					width: 10px;
 					height: 105%;
 					top: -2%;
@@ -137,7 +137,7 @@ class pageEditor extends HTMLElement {
 				
 				#right {
 					position: absolute;
-					background-color: blue;
+					background-color: rgba(0, 0, 0, 0);
 					width: 10px;
 					height: 105%;
 					top: -2%;
@@ -155,7 +155,7 @@ class pageEditor extends HTMLElement {
 			  		<div id="left"></div>
 			  		<div id="right"></div>
 					
-					<button id="btn1" class="btn">Submit</button>
+					<button id="btn1" class="btn">Enter</button>
 					<textarea id="txt1" cols="25" rows="1"></textarea>
 					<textarea id="txt2" cols="25" rows="1"></textarea>
 					<textarea id="txt3" cols="25" rows="1"></textarea>
@@ -175,19 +175,55 @@ class pageEditor extends HTMLElement {
 		let x6 = shadow.getElementById('right');
 		let isBarPress, antX, antY, overEdge;
 
-		x3.onclick = () => {
+		x3.onmousemove = evt => {
+			x3.style.cursor = 'n-resize';
+		};
+
+		x3.onmousedown = evt => {
 			overEdge = true;
 		};
 
-		x4.onclick = () => {
+		x4.onmousemove = evt => {
+			x4.style.cursor = 's-resize';
+		};
+
+		x4.onmousedown = evt => {
 			overEdge = true;
 		};
 
-		x5.onclick = () => {
+		x5.onmousemove = evt => {
+			let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
+			let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
+
+			if (evt.clientY < i + 10 && evt.clientY > i - 10)
+				x5.style.cursor = 'nw-resize';
+
+			else if (evt.clientY > i + j - 20 && evt.clientY < i + j + 20)
+				x5.style.cursor = 'sw-resize';
+
+			else
+				x5.style.cursor = 'w-resize';
+		};
+
+		x5.onmousedown = evt => {
 			overEdge = true;
 		};
 
-		x6.onclick = () => {
+		x6.onmousemove = evt => {
+			let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
+			let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
+
+			if (evt.clientY < i + 10 && evt.clientY > i - 10)
+				x6.style.cursor = 'ne-resize';
+
+			else if (evt.clientY > i + j - 20 && evt.clientY < i + j + 20)
+				x6.style.cursor = 'se-resize';
+
+			else
+				x6.style.cursor = 'e-resize';
+		};
+
+		x6.onmousedown = evt => {
 			overEdge = true;
 		};
 
@@ -199,9 +235,37 @@ class pageEditor extends HTMLElement {
 
 		onmouseup = function(evt) {
 			isBarPress = false;
+			overEdge = false;
 		};
 		onmousemove = function(evt) {
 			if (isBarPress) {
+				let actX = evt.clientX;
+				let actY = evt.clientY;
+				let difX = actX - antX;
+				let difY = actY - antY;
+				antX = actX;
+				antY = actY;
+
+				let newDiv = x1;
+				let position = getPosition(newDiv);
+
+				newDiv.style.top = (position[0] + difY) + 'px';
+				newDiv.style.left = (position[1] + difX) + 'px';
+
+				if (position[0] + difY < 0)
+					newDiv.style.top = 0 + 'px';
+
+				else
+					newDiv.style.top = (position[0] + difY) + 'px';
+
+				if (position[1] + difX < 0)
+					newDiv.style.left = 0 + 'px';
+
+				else
+					newDiv.style.left = (position[1] + difX) + 'px';
+			}
+
+			if (overEdge) {
 				let actX = evt.clientX;
 				let actY = evt.clientY;
 				let difX = actX - antX;
