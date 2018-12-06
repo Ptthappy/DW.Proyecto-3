@@ -165,7 +165,7 @@ class pageEditor extends HTMLElement {
 					<table id="mt"></table>
 				</div>
 			  
-			</style>
+			
 			`;
 		let x1 = shadow.getElementById('container');
 		let x2 = shadow.getElementById('top-bar');
@@ -312,18 +312,60 @@ class pageEditor extends HTMLElement {
 
 				let newDiv = x1;
 
-				let dimension = getDimentions(newDiv);
+				let dimension = getDimensions(newDiv);
+				let position = getPosition(newDiv);
 
 				console.log(difX);
 				console.log(dimension[0] + difX);
 				console.log(dimension[0]);
 
-				if (up || dw) {
-					newDiv.style.height = dimension[0] + difY + 'px';
+				/*
+				* newDiv.style.height = dimension[0] + difY + 'px';
+				* newDiv.style.height = dimension[0] - difY + 'px'; newDiv.style.top = position[0] + difY + 'px';
+				* newDiv.style.width = dimension[1] + difX + 'px';
+				* newDiv.style.width = dimension[1] - difX + 'px'; newDiv.style.left = position[1] + difX + 'px';
+				* */
+
+				if (up) {
+					if (lf || rg) {
+						if(lf) {
+							newDiv.style.width = dimension[1] - difX + 'px';
+							newDiv.style.left = position[1] + difX + 'px';
+						}
+
+						else
+							newDiv.style.width = dimension[1] + difX + 'px';
+					}
+
+					newDiv.style.height = dimension[0] - difY + 'px';
+					newDiv.style.top = position[0] + difY + 'px';
+					return;
 				}
 
-				if (lf || rg) {
+				if (dw) {
+					if (lf || rg) {
+						if(lf) {
+							newDiv.style.width = dimension[1] - difX + 'px';
+							newDiv.style.left = position[1] + difX + 'px';
+						}
+
+						else
+							newDiv.style.width = dimension[1] + difX + 'px';
+					}
+
+					newDiv.style.height = dimension[0] + difY + 'px';
+					return;
+				}
+
+				if(lf) {
+					newDiv.style.width = dimension[1] - difX + 'px';
+					newDiv.style.left = position[1] + difX + 'px';
+					return;
+				}
+
+				if (rg) {
 					newDiv.style.width = dimension[1] + difX + 'px';
+					return;
 				}
 
 
@@ -350,7 +392,7 @@ class pageEditor extends HTMLElement {
 			return position;
 		}
 
-		function getDimentions(element) {
+		function getDimensions(element) {
 			let dim = new Array(2);
 			dim[0] = parseInt(document.defaultView.getComputedStyle(element, null).getPropertyValue('height'));
 			dim[1] = parseInt(document.defaultView.getComputedStyle(element, null).getPropertyValue('width'));
@@ -364,7 +406,3 @@ class pageEditor extends HTMLElement {
 
 
 window.customElements.define('pg-editor', pageEditor);
-
-let x = new pageEditor();
-
-console.log(x);
