@@ -144,7 +144,6 @@ class pageEditor extends HTMLElement {
 					left: 99.3%;
 				}
 				
-				
 			  </style>
 			  
 			  	<div id="container">
@@ -319,12 +318,17 @@ class pageEditor extends HTMLElement {
 				console.log(dimension[0] + difX);
 				console.log(dimension[0]);
 
-				/*
-				* newDiv.style.height = dimension[0] + difY + 'px';
-				* newDiv.style.height = dimension[0] - difY + 'px'; newDiv.style.top = position[0] + difY + 'px';
-				* newDiv.style.width = dimension[1] + difX + 'px';
-				* newDiv.style.width = dimension[1] - difX + 'px'; newDiv.style.left = position[1] + difX + 'px';
-				* */
+				if (dimension[0] < 420 || dimension[1] < 340) {
+					if (dimension[1] < 340) {
+						newDiv.style.width = 340 + 'px';
+						return;
+					}
+
+					else {
+						newDiv.style.height = 420 + 'px';
+						return;
+					}
+				}
 
 				if (up) {
 					if (lf || rg) {
@@ -367,21 +371,6 @@ class pageEditor extends HTMLElement {
 					newDiv.style.width = dimension[1] + difX + 'px';
 					return;
 				}
-
-
-/*
-				if (dimension[0] + difY < 0)
-					newDiv.style.height = 0 + 'px';
-
-				else
-					newDiv.style.height = (dimension[0] + difY) + 'px';
-
-				if (dimension[1] + difX < 0)
-					newDiv.style.width = 0 + 'px';
-
-				else
-					newDiv.style.width = (dimension[1] + difX) + 'px';
-*/
 			}
 		};
 
