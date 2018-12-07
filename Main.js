@@ -8,6 +8,12 @@ class pageEditor extends HTMLElement {
 		shadow.innerHTML =
 			`
 			<style>
+				.nosel {
+					-webkit-user-select: none;
+					-moz-user-select: none;
+					-ms-user-select: none;
+					user-select: none;
+				}
 				
 				#container {
 					position: absolute;
@@ -179,7 +185,7 @@ class pageEditor extends HTMLElement {
 				
 			</style>
 			  
-			  	<div id="container">
+			  	<div id="container" class="nosel">
 					<div id="top-bar">
 					<button id="redbtn">✖</button>
 					<button id="maxbtn">💯</button>
@@ -212,7 +218,7 @@ class pageEditor extends HTMLElement {
 		let x7 = shadow.getElementById('redbtn');
 		let x8 = shadow.getElementById('maxbtn');
 		let x9 = shadow.getElementById('minbtn');
-		let isBarPress, antX, antY, overEdge, up, dw, lf, rg;
+		let isBarPress, antX, antY, overEdge, up, dw, lf, rg, isMax = false, isHidden = false, top, left, width, height;
 
 		x7.onmouseover = evt => {
 			x7.style.backgroundColor = 'rgb(255, 0, 0)';
@@ -222,6 +228,10 @@ class pageEditor extends HTMLElement {
 			x7.style.backgroundColor = 'rgb(190, 0, 0)';
 		};
 
+		x7.onclick = evt => {
+			x1.remove();
+		};
+
 		x8.onmouseover = evt => {
 			x8.style.backgroundColor = 'rgb(70, 70, 100)';
 		};
@@ -229,6 +239,43 @@ class pageEditor extends HTMLElement {
 		x8.onmouseleave = evt => {
 			x8.style.backgroundColor = 'rgb(100, 100, 140)';
 		};
+
+		x8.onclick = evt => {
+			if(!isMax) {
+				top = x1.style.top;
+				left = x1.style.left;
+				width = x1.style.width;
+				height = x1.style.height;
+				x1.style.top = 0 + 'px';
+				x1.style.left = 0 + 'px';
+				x1.style.width = 100 + '%';
+				x1.style.height = 100 + '%';
+				isMax = true;
+			}
+
+			else {
+				x1.style.top = top;
+				x1.style.left = left;
+				x1.style.width = width;
+				x1.style.height = height;
+				isMax = false;
+
+			}
+		};
+		x9.onclick = () =>{
+			if (!isHidden){
+				top = x1.style.top;
+				left = x1.style.left;
+				width = x1.style.width;
+				height = x1.style.height;
+				x1.style.top = 0 + 'px';
+				x1.style.left = 0 + 'px';
+				x1.style.height = 4 + '%';
+				isHidden = true;
+			} else{
+
+			}
+		}
 
 		x9.onmouseover = evt => {
 			x9.style.backgroundColor = 'rgb(150, 150, 150)';
