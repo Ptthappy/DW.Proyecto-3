@@ -27,6 +27,39 @@ class pageEditor extends HTMLElement {
 					background-color: rgba(0, 0, 0, 0.5);
 				}
 				
+				#redbtn {
+					position: absolute;
+					width: 28px;
+					height: 28px;
+					background-color: rgb(190, 0, 0);
+					border: none;
+					top: 0px;
+					right: 0px;
+					text-align: center;
+				}
+				
+				#minbtn {
+					position: absolute;
+					width: 28px;
+					height: 28px;
+					background-color: rgb(200, 200, 200);
+					border: none;
+					top: 0px;
+					right: 56px;
+					text-align: center;
+				}
+				
+				#maxbtn {
+					position: absolute;
+					width: 28px;
+					height: 28px;
+					background-color: rgb(70, 70, 100);
+					border: none;
+					top: 0px;
+					right: 28px;
+					text-align: center;
+				}
+				
 				#btn1 {
 					background-color: rgba(0, 0, 0, 0.5);
 				  	border-radius: 1px;
@@ -144,15 +177,19 @@ class pageEditor extends HTMLElement {
 					left: 99.3%;
 				}
 				
-			  </style>
+			</style>
 			  
 			  	<div id="container">
-			  		<div id="top-bar"></div>
-			  		
-			  		<div id="top"></div>
-			  		<div id="down"></div>
-			  		<div id="left"></div>
-			  		<div id="right"></div>
+					<div id="top-bar">
+					<button id="redbtn">✖</button>
+					<button id="maxbtn">💯</button>
+					<button id="minbtn">➖</button>
+					</div>
+					
+					<div id="top"></div>
+					<div id="down"></div>
+					<div id="left"></div>
+					<div id="right"></div>
 					
 					<button id="btn1" class="btn">Enter</button>
 					<textarea id="txt1" cols="25" rows="1"></textarea>
@@ -172,7 +209,34 @@ class pageEditor extends HTMLElement {
 		let x4 = shadow.getElementById('down');
 		let x5 = shadow.getElementById('left');
 		let x6 = shadow.getElementById('right');
+		let x7 = shadow.getElementById('redbtn');
+		let x8 = shadow.getElementById('maxbtn');
+		let x9 = shadow.getElementById('minbtn');
 		let isBarPress, antX, antY, overEdge, up, dw, lf, rg;
+
+		x7.onmouseover = evt => {
+			x7.style.backgroundColor = 'rgb(255, 0, 0)';
+		};
+
+		x7.onmouseleave = evt => {
+			x7.style.backgroundColor = 'rgb(190, 0, 0)';
+		};
+
+		x8.onmouseover = evt => {
+			x8.style.backgroundColor = 'rgb(70, 70, 100)';
+		};
+
+		x8.onmouseleave = evt => {
+			x8.style.backgroundColor = 'rgb(100, 100, 140)';
+		};
+
+		x9.onmouseover = evt => {
+			x9.style.backgroundColor = 'rgb(150, 150, 150)';
+		};
+
+		x9.onmouseleave = evt => {
+			x9.style.backgroundColor = 'rgb(200, 200, 200)';
+		};
 
 		x3.onmousemove = evt => {
 			x3.style.cursor = 'n-resize';
