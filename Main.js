@@ -218,7 +218,8 @@ class pageEditor extends HTMLElement {
 		let x7 = shadow.getElementById('redbtn');
 		let x8 = shadow.getElementById('maxbtn');
 		let x9 = shadow.getElementById('minbtn');
-		let isBarPress, antX, antY, overEdge, up, dw, lf, rg, isMax = false, isHidden = false, top, left, width, height;
+		let isBarPress, antX, antY, overEdge, up, dw, lf, rg, isMax = false, isHidden = false,
+			top, left, width, height, lastHeight;
 
 		x7.onmouseover = evt => {
 			x7.style.backgroundColor = 'rgb(255, 0, 0)';
@@ -259,23 +260,35 @@ class pageEditor extends HTMLElement {
 				x1.style.width = width;
 				x1.style.height = height;
 				isMax = false;
-
 			}
 		};
-		x9.onclick = () =>{
-			if (!isHidden){
-				top = x1.style.top;
-				left = x1.style.left;
-				width = x1.style.width;
-				height = x1.style.height;
-				x1.style.top = 0 + 'px';
-				x1.style.left = 0 + 'px';
-				x1.style.height = 4 + '%';
-				isHidden = true;
-			} else{
 
+		x9.onclick = () => {
+			if (!isHidden){
+				for (let elements of x1.children) {
+					console.log(elements.id === 'top-bar');
+					if (elements.id === 'top-bar')
+						continue;
+					elements.style.visibility = 'hidden';
+				}
+				lastHeight = document.defaultView.getComputedStyle(x1, null).getPropertyValue('height');
+				x1.style.height = 28 + 'px';
+				isHidden = true;
 			}
-		}
+
+			else{
+				for (let elements of x1.children) {
+					console.log(elements.id === 'top-bar');
+					if (elements.id === 'top-bar')
+						continue;
+					elements.style.visibility = 'visible';
+				}
+
+				x1.style.height = lastHeight;
+				isHidden = false;
+			}
+
+		};
 
 		x9.onmouseover = evt => {
 			x9.style.backgroundColor = 'rgb(150, 150, 150)';
