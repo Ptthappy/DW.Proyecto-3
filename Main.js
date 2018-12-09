@@ -3,9 +3,9 @@
 class pageEditor extends HTMLElement {
 	constructor() {
 		super();
+		this.shadow = this.attachShadow({mode: 'open'});
 
-		let shadow = this.attachShadow({mode : 'open'});
-		shadow.innerHTML =
+/*		shadow.innerHTML =
 			`
 			<style>
 				.nosel {
@@ -14,25 +14,7 @@ class pageEditor extends HTMLElement {
 					-ms-user-select: none;
 					user-select: none;
 				}
-				
-				#container {
-					position: absolute;
-					background-color: rgba(100, 190, 0, 0.07);
-					border : 2px solid darkslateblue;
-					border-radius: 3px;
-					width: 340px;
-					height: 420px;
-					top: 50px;
-					left: 10px;
-				}
-				
-				#top-bar {
-					position: absolute;
-					width: 100%;
-					height: 28px;
-					background-color: rgba(0, 0, 0, 0.5);
-				}
-				
+
 				#redbtn {
 					position: absolute;
 					width: 28px;
@@ -505,11 +487,151 @@ class pageEditor extends HTMLElement {
 			dim[1] = parseInt(document.defaultView.getComputedStyle(element, null).getPropertyValue('width'));
 			return dim;
 		}
+*/
+	}
 
+	connectedCallback() {
+		this.initializeWindow();
+		this.addObj([]);
+	}
 
+	initializeWindow() {
+		let container = document.createElement('div');
+		container.id = 'container';
+		container.style.position = 'absolute';
+		container.style.backgroundColor = 'rgba(100, 190, 0, 0.07)';
+		container.style.border = '2px solid darkslateblue';
+		container.style.borderRadius = '3px';
+		container.style.width = '340px';
+		container.style.height = '420px';
+		container.style.top = '50px';
+		container.style.left = '10px';
+		container.style.userSelect = 'none';
+		container.style.msUserSelect = 'none';
+		container.style.webkitUserSelect = 'none';
+
+		let topbar = document.createElement('div');
+		topbar.id = 'top-bar';
+		topbar.style.position = 'absolute';
+		topbar.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+		topbar.style.width = '100%';
+		topbar.style.height = '28px';
+		topbar.style.textAlign = 'left';
+		topbar.textContent = 'Editor';
+
+		let redbtn = document.createElement('div');
+		redbtn.id = 'redbtn';
+		redbtn.style.position = 'absolute';
+		redbtn.style.width = '28px';
+		redbtn.style.height = '28px';
+		redbtn.style.backgroundColor = 'rgb(190, 0, 0)';
+		redbtn.style.border = 'none';
+		redbtn.style.top = '0px';
+		redbtn.style.right = '0px';
+		redbtn.style.textAlign = 'center';
+		redbtn.textContent = '✖';
+
+		let minbtn = document.createElement('div');
+		minbtn.id = 'minbtn';
+		minbtn.style.position = 'absolute';
+		minbtn.style.width = '28px';
+		minbtn.style.height = '28px';
+		minbtn.style.backgroundColor = 'rgb(200, 200, 200)';
+		minbtn.style.border = 'none';
+		minbtn.style.top = '0px';
+		minbtn.style.right = '56px';
+		minbtn.style.textAlign = 'center';
+		minbtn.textContent = '➖';
+
+		let maxbtn = document.createElement('div');
+		maxbtn.id = 'maxbtn';
+		maxbtn.style.position = 'absolute';
+		maxbtn.style.width = '28px';
+		maxbtn.style.height = '28px';
+		maxbtn.style.backgroundColor = 'rgb(70, 70, 100)';
+		maxbtn.style.border = 'none';
+		maxbtn.style.top = '0px';
+		maxbtn.style.right = '28px';
+		maxbtn.style.textAlign = 'center';
+		maxbtn.textContent = '💯';
+
+		//Divs invisibles para los listeners
+		let top = document.createElement('div');
+		top.id = 'top';
+		top.style.position = 'absolute';
+		top.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+		top.style.width = '99%';
+		top.style.height = '10px';
+		top.style.top = '-6px';
+		top.style.left = '0.5%';
+
+		let down = document.createElement('div');
+		down.id = 'down';
+		down.style.position = 'absolute';
+		down.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+		down.style.width = '99%';
+		down.style.height = '10px';
+		down.style.top = '100%';
+		down.style.left = '0.5%';
+
+		let left = document.createElement('div');
+		left.id = 'left';
+		left.style.position = 'absolute';
+		left.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+		left.style.width = '10px';
+		left.style.height = '105%';
+		left.style.top = '-2%';
+		left.style.left = '-6px';
+
+		let right = document.createElement('div');
+		right.id = 'right';
+		right.style.position = 'absolute';
+		right.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+		right.style.width = '99%';
+		right.style.height = '10px';
+		right.style.top = '100%';
+		right.style.left = '0.5%';
+
+		this.shadow.appendChild(container);
+		container.appendChild(topbar);
+		topbar.appendChild(redbtn);
+		topbar.appendChild(minbtn);
+		topbar.appendChild(maxbtn);
+		container.appendChild(top);
+		container.appendChild(down);
+		container.appendChild(left);
+		container.appendChild(right);
+	}
+
+	addObj(bprop, otherP) {  //basicProperties (Array): typeElement, id, top, left, width, height
+									   //other (Obj): backColor, border, textAlign, fontSize, fontFamily
+		let element = document.createElement(bprop.type);
+		element.id = bprop.id;
+		element.style.position = 'absolute';
+		element.style.top = bprop.top;
+		element.style.left = bprop.left;
+		element.style.width = bprop.width;
+		element.style.height = bprop.height;
+
+		if (otherP.hasOwnProperty(backgroundColor))
+			element.style.backgroundColor = otherP.backgroundColor;
+
+		if (otherP.hasOwnProperty(border))
+			element.style.border = otherP.border;
+
+		if (otherP.hasOwnProperty(textAlign))
+			element.style.textAlign = otherP.textAlign;
+
+		if (otherP.hasOwnProperty(fontSize))
+			element.style.fontSize = otherP.fontSize;
+
+		if (otherP.hasOwnProperty(fontFamily))
+			element.style.fontFamily = otherP.fontFamily;
 	}
 
 }
 
 
 window.customElements.define('pg-editor', pageEditor);
+
+let a = new pageEditor();
