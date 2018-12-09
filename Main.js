@@ -76,8 +76,8 @@ class pageEditor extends HTMLElement {
 				  	position: absolute;
 				  	width: 95px;
 					height: 25px;
-					top: 180px;
-					left: 120px;
+					top: 43%;
+					left: 35.3%;
 				}
 				
 				#mt {
@@ -86,10 +86,10 @@ class pageEditor extends HTMLElement {
 				  	border: none;
 				  	
 				  	position: absolute;
-				  	width: 320px;
-					height: 190px;
-					top: 220px;
-					left: 10px;
+				  	width: 94%;
+					height: 45%;
+					top: 52%;
+					left: 2.4%;
 				}
 				
 				#txt1 {
@@ -266,7 +266,6 @@ class pageEditor extends HTMLElement {
 		x9.onclick = () => {
 			if (!isHidden){
 				for (let elements of x1.children) {
-					console.log(elements.id === 'top-bar');
 					if (elements.id === 'top-bar')
 						continue;
 					elements.style.visibility = 'hidden';
@@ -278,7 +277,6 @@ class pageEditor extends HTMLElement {
 
 			else{
 				for (let elements of x1.children) {
-					console.log(elements.id === 'top-bar');
 					if (elements.id === 'top-bar')
 						continue;
 					elements.style.visibility = 'visible';
@@ -437,10 +435,6 @@ class pageEditor extends HTMLElement {
 
 				let dimension = getDimensions(newDiv);
 				let position = getPosition(newDiv);
-
-				console.log(difX);
-				console.log(dimension[0] + difX);
-				console.log(dimension[0]);
 
 				if (dimension[0] < 420 || dimension[1] < 340) {
 					if (dimension[1] < 340) {
