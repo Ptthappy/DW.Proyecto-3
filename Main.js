@@ -36,16 +36,28 @@ class pageEditor extends HTMLElement {
 		this.x8 = this.shadow.getElementById('maxbtn');
 		this.x9 = this.shadow.getElementById('minbtn');
 
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
-		this.x1.addEventListener();
+		addEventListener('onmousemove');
+		addEventListener('onmouseup');
+		this.x2.addEventListener('onmousedown', this.x2down);
+		this.x3.addEventListener('onmousemove', this.x3move);
+		this.x3.addEventListener('onmousedown', this.x3down);
+		this.x4.addEventListener('onmousemove', this.x4move);
+		this.x4.addEventListener('onmousedown', this.x4down);
+		this.x5.addEventListener('onmousemove', this.x5move);
+		this.x5.addEventListener('onmousedown', this.x5down);
+		this.x6.addEventListener('onmousemove', this.x6move);
+		this.x6.addEventListener('onmousedown', this.x6down);
+		this.x7.addEventListener('onmouseover', this.x7over);
+		this.x7.addEventListener('onmouseleave', this.x7leave);
+		this.x7.addEventListener('onclick', this.x7click);
+		this.x8.addEventListener('onmouseover', this.x8over);
+		this.x8.addEventListener('onmouseleave', this.x8leave);
+		this.x8.addEventListener('onclick', this.x8click);
+		this.x9.addEventListener('onmouseover', this.x9over);
+		this.x9.addEventListener('onmouseleave', this.x9leave);
+		this.x9.addEventListener('onclick', this.x9click);
+
+
 
 		let container = document.createElement('div');
 		container.id = 'container';
@@ -195,27 +207,27 @@ class pageEditor extends HTMLElement {
 		return element;
 	}
 
-	this.x7.onmouseover = evt => {
+	x7over = evt => {
 		this.x7.style.backgroundColor = 'rgb(255, 0, 0)';
 	};
 
-	this.x7.onmouseleave = evt => {
+	x7leave = evt => {
 		this.x7.style.backgroundColor = 'rgb(190, 0, 0)';
 	};
 
-	this.x7.onclick = evt => {
+	x7click = evt => {
 		this.x1.remove();
 	};
 
-	this.x8.onmouseover = evt => {
+	x8over = evt => {
 		this.x8.style.backgroundColor = 'rgb(70, 70, 100)';
 	};
 
-	this.x8.onmouseleave = evt => {
+	x8leave = evt => {
 		this.x8.style.backgroundColor = 'rgb(100, 100, 140)';
 	};
 
-	this.x8.onclick = evt => {
+	x8click = evt => {
 		if(!isMax) {
 			top = x1.style.top;
 			left = x1.style.left;
@@ -237,7 +249,7 @@ class pageEditor extends HTMLElement {
 		}
 	};
 
-	this.x9.onclick = () => {
+	x9click = () => {
 		if (!isHidden){
 			for (let elements of x1.children) {
 				if (elements.id === 'top-bar')
@@ -262,37 +274,37 @@ class pageEditor extends HTMLElement {
 
 	};
 
-	this.x9.onmouseover = evt => {
+	x9over = evt => {
 		this.x9.style.backgroundColor = 'rgb(150, 150, 150)';
 	};
 
-	this.x9.onmouseleave = evt => {
+	x9leave = evt => {
 		this.x9.style.backgroundColor = 'rgb(200, 200, 200)';
 	};
 
-	this.x3.onmousemove = evt => {
+	x3move = evt => {
 		this.x3.style.cursor = 'n-resize';
 	};
 
-	this.x3.onmousedown = evt => {
+	x3down = evt => {
 		overEdge = true;
 		up = true;
 		antX = evt.clientX;
 		antY = evt.clientY;
 	};
 
-	this.x4.onmousemove = evt => {
+	x4move = evt => {
 		this.x4.style.cursor = 's-resize';
 	};
 
-	this.x4.onmousedown = evt => {
+	x4down = evt => {
 		overEdge = true;
 		dw = true;
 		antX = evt.clientX;
 		antY = evt.clientY;
 	};
 
-	this.x5.onmousemove = evt => {
+	x5move = evt => {
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
 		let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
 
@@ -306,7 +318,7 @@ class pageEditor extends HTMLElement {
 			this.x5.style.cursor = 'w-resize';
 	};
 
-	this.x5.onmousedown = evt => {
+	x5down = evt => {
 		overEdge = true;
 
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
@@ -325,7 +337,7 @@ class pageEditor extends HTMLElement {
 		antY = evt.clientY;
 	};
 
-	this.x6.onmousemove = evt => {
+	x6move = evt => {
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
 		let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
 
@@ -339,7 +351,7 @@ class pageEditor extends HTMLElement {
 			this.x6.style.cursor = 'e-resize';
 	};
 
-	this.x6.onmousedown = evt => {
+	x6down = evt => {
 		overEdge = true;
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
 		let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
@@ -355,7 +367,7 @@ class pageEditor extends HTMLElement {
 		antY = evt.clientY;
 	};
 
-	this.x2.onmousedown = function(evt) {
+	x2down = function(evt) {
 		isBarPress = true;
 		antX = evt.clientX;
 		antY = evt.clientY;
@@ -369,6 +381,7 @@ class pageEditor extends HTMLElement {
 		lf = false;
 		rg = false;
 	};
+
 	onmousemove = function(evt) {
 		if (isBarPress) {
 			let actX = evt.clientX;
@@ -379,7 +392,7 @@ class pageEditor extends HTMLElement {
 			antY = actY;
 
 			let newDiv = this.x1;
-			let position = getPosition(newDiv);
+			let position = this.getPosition(newDiv);
 
 			newDiv.style.top = (position[0] + difY) + 'px';
 			newDiv.style.left = (position[1] + difX) + 'px';
@@ -407,8 +420,8 @@ class pageEditor extends HTMLElement {
 
 			let newDiv = this.x1;
 
-			let dimension = getDimensions(newDiv);
-			let position = getPosition(newDiv);
+			let dimension = this.getDimensions(newDiv);
+			let position = this.getPosition(newDiv);
 
 			if (dimension[0] < 420 || dimension[1] < 340) {
 				if (dimension[1] < 340) {
