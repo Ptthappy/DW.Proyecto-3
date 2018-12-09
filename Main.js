@@ -26,39 +26,6 @@ class pageEditor extends HTMLElement {
 	}
 
 	initializeWindow() {
-		this.x1 = this.shadow.getElementById('container');
-		this.x2 = this.shadow.getElementById('top-bar');
-		this.x3 = this.shadow.getElementById('top');
-		this.x4 = this.shadow.getElementById('down');
-		this.x5 = this.shadow.getElementById('left');
-		this.x6 = this.shadow.getElementById('right');
-		this.x7 = this.shadow.getElementById('redbtn');
-		this.x8 = this.shadow.getElementById('maxbtn');
-		this.x9 = this.shadow.getElementById('minbtn');
-
-		addEventListener('onmousemove');
-		addEventListener('onmouseup');
-		this.x2.addEventListener('onmousedown', this.x2down);
-		this.x3.addEventListener('onmousemove', this.x3move);
-		this.x3.addEventListener('onmousedown', this.x3down);
-		this.x4.addEventListener('onmousemove', this.x4move);
-		this.x4.addEventListener('onmousedown', this.x4down);
-		this.x5.addEventListener('onmousemove', this.x5move);
-		this.x5.addEventListener('onmousedown', this.x5down);
-		this.x6.addEventListener('onmousemove', this.x6move);
-		this.x6.addEventListener('onmousedown', this.x6down);
-		this.x7.addEventListener('onmouseover', this.x7over);
-		this.x7.addEventListener('onmouseleave', this.x7leave);
-		this.x7.addEventListener('onclick', this.x7click);
-		this.x8.addEventListener('onmouseover', this.x8over);
-		this.x8.addEventListener('onmouseleave', this.x8leave);
-		this.x8.addEventListener('onclick', this.x8click);
-		this.x9.addEventListener('onmouseover', this.x9over);
-		this.x9.addEventListener('onmouseleave', this.x9leave);
-		this.x9.addEventListener('onclick', this.x9click);
-
-
-
 		let container = document.createElement('div');
 		container.id = 'container';
 		container.style.position = 'absolute';
@@ -185,6 +152,37 @@ class pageEditor extends HTMLElement {
 
 		container.appendChild(this.addObj({type: 'table', id: 'mt', top: '52%', left: '2.4%', width: '95.5%',
 			height: '46%', backgroundColor: 'rgba(0, 0, 0, 0.3)', borderRadius: '2px', border: 'none'}));
+
+		this.x1 = this.shadow.getElementById('container');
+		this.x2 = this.shadow.getElementById('top-bar');
+		this.x3 = this.shadow.getElementById('top');
+		this.x4 = this.shadow.getElementById('down');
+		this.x5 = this.shadow.getElementById('left');
+		this.x6 = this.shadow.getElementById('right');
+		this.x7 = this.shadow.getElementById('redbtn');
+		this.x8 = this.shadow.getElementById('maxbtn');
+		this.x9 = this.shadow.getElementById('minbtn');
+
+		addEventListener('onmousemove', this.move);
+		addEventListener('onmouseup', this.up);
+		this.x2.addEventListener('onmousedown', this.x2down);
+		this.x3.addEventListener('onmousemove', this.x3move);
+		this.x3.addEventListener('onmousedown', this.x3down);
+		this.x4.addEventListener('onmousemove', this.x4move);
+		this.x4.addEventListener('onmousedown', this.x4down);
+		this.x5.addEventListener('onmousemove', this.x5move);
+		this.x5.addEventListener('onmousedown', this.x5down);
+		this.x6.addEventListener('onmousemove', this.x6move);
+		this.x6.addEventListener('onmousedown', this.x6down);
+		this.x7.addEventListener('onmouseover', this.x7over);
+		this.x7.addEventListener('onmouseleave', this.x7leave);
+		this.x7.addEventListener('onclick', this.x7click);
+		this.x8.addEventListener('onmouseover', this.x8over);
+		this.x8.addEventListener('onmouseleave', this.x8leave);
+		this.x8.addEventListener('onclick', this.x8click);
+		this.x9.addEventListener('onmouseover', this.x9over);
+		this.x9.addEventListener('onmouseleave', this.x9leave);
+		this.x9.addEventListener('onclick', this.x9click);
 	}
 
 	addObj(prop) {  //basicProperties (Array): typeElement, id, top, left, width, height
@@ -207,27 +205,27 @@ class pageEditor extends HTMLElement {
 		return element;
 	}
 
-	x7over = evt => {
+	x7over(evt) {
 		this.x7.style.backgroundColor = 'rgb(255, 0, 0)';
 	};
 
-	x7leave = evt => {
+	x7leave(evt) {
 		this.x7.style.backgroundColor = 'rgb(190, 0, 0)';
 	};
 
-	x7click = evt => {
+	x7click(evt) {
 		this.x1.remove();
 	};
 
-	x8over = evt => {
+	x8over(evt) {
 		this.x8.style.backgroundColor = 'rgb(70, 70, 100)';
 	};
 
-	x8leave = evt => {
+	x8leave(evt) {
 		this.x8.style.backgroundColor = 'rgb(100, 100, 140)';
 	};
 
-	x8click = evt => {
+	x8click(evt) {
 		if(!isMax) {
 			top = x1.style.top;
 			left = x1.style.left;
@@ -249,7 +247,7 @@ class pageEditor extends HTMLElement {
 		}
 	};
 
-	x9click = () => {
+	x9click(evt) {
 		if (!isHidden){
 			for (let elements of x1.children) {
 				if (elements.id === 'top-bar')
@@ -274,37 +272,37 @@ class pageEditor extends HTMLElement {
 
 	};
 
-	x9over = evt => {
+	x9over(evt) {
 		this.x9.style.backgroundColor = 'rgb(150, 150, 150)';
 	};
 
-	x9leave = evt => {
+	x9leave(evt) {
 		this.x9.style.backgroundColor = 'rgb(200, 200, 200)';
 	};
 
-	x3move = evt => {
+	x3move(evt) {
 		this.x3.style.cursor = 'n-resize';
 	};
 
-	x3down = evt => {
+	x3down(evt) {
 		overEdge = true;
 		up = true;
 		antX = evt.clientX;
 		antY = evt.clientY;
 	};
 
-	x4move = evt => {
+	x4move(evt) {
 		this.x4.style.cursor = 's-resize';
 	};
 
-	x4down = evt => {
+	x4down(evt) {
 		overEdge = true;
 		dw = true;
 		antX = evt.clientX;
 		antY = evt.clientY;
 	};
 
-	x5move = evt => {
+	x5move(evt) {
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
 		let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
 
@@ -318,7 +316,7 @@ class pageEditor extends HTMLElement {
 			this.x5.style.cursor = 'w-resize';
 	};
 
-	x5down = evt => {
+	x5down(evt) {
 		overEdge = true;
 
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
@@ -337,7 +335,7 @@ class pageEditor extends HTMLElement {
 		antY = evt.clientY;
 	};
 
-	x6move = evt => {
+	x6move(evt) {
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
 		let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
 
@@ -351,7 +349,7 @@ class pageEditor extends HTMLElement {
 			this.x6.style.cursor = 'e-resize';
 	};
 
-	x6down = evt => {
+	x6down(evt) {
 		overEdge = true;
 		let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
 		let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
@@ -367,13 +365,13 @@ class pageEditor extends HTMLElement {
 		antY = evt.clientY;
 	};
 
-	x2down = function(evt) {
+	x2down(evt) {
 		isBarPress = true;
 		antX = evt.clientX;
 		antY = evt.clientY;
 	};
 
-	onmouseup = function(evt) {
+	up(evt) {
 		isBarPress = false;
 		overEdge = false;
 		up = false;
@@ -382,7 +380,7 @@ class pageEditor extends HTMLElement {
 		rg = false;
 	};
 
-	onmousemove = function(evt) {
+	move(evt) {
 		if (isBarPress) {
 			let actX = evt.clientX;
 			let actY = evt.clientY;
