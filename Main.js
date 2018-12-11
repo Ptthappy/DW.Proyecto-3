@@ -5,6 +5,15 @@ class PageEditor extends HTMLElement {
 		super();
 		this.shadow = this.attachShadow({mode: 'open'});
 
+		let base = document.createElement('div');
+		base.id = 'base';
+		base.style.position = 'absolute';
+		base.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+		base.style.top = 0 + 'px';
+		base.style.left = 0 + 'px';
+		base.style.width = 2000 + 'px';
+		base.style.height = 2000 + 'px';
+
 		let container = document.createElement('div');
 		container.id = 'container';
 		container.style.position = 'absolute';
@@ -101,6 +110,7 @@ class PageEditor extends HTMLElement {
 		right.style.top = '-2%';
 		right.style.left = '99.3%';
 
+		this.shadow.appendChild(base);
 		this.shadow.appendChild(container);
 		container.appendChild(topbar);
 		topbar.appendChild(redbtn);
@@ -302,7 +312,12 @@ class PageEditor extends HTMLElement {
 			rg = false;
 		};
 
+		onmousemove = function(evt) {
+			console.log('culo2');
+		};
+
 		this.onmousemove = function(evt) {
+			console.log('culo');
 			if (isBarPress) {
 				let actX = evt.clientX;
 				let actY = evt.clientY;
@@ -342,10 +357,6 @@ class PageEditor extends HTMLElement {
 
 				let dimension = getDimensions(newDiv);
 				let position = getPosition(newDiv);
-
-				console.log(difX);
-				console.log(dimension[0] + difX);
-				console.log(dimension[0]);
 
 				if (dimension[0] < 420 || dimension[1] < 340) {
 					if (dimension[1] < 340) {
