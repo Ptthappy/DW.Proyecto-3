@@ -1,6 +1,6 @@
 //El elemento se llamará PageEditor, que editará la página para ponerle mariqueras
 
-class pageEditor extends HTMLElement {
+class PageEditor extends HTMLElement {
 	constructor() {
 		super();
 		this.shadow = this.attachShadow({mode: 'open'});
@@ -293,18 +293,16 @@ class pageEditor extends HTMLElement {
 			antY = evt.clientY;
 		};
 
-		this.x1.onmouseup = function(evt) {
+		this.onmouseup = function(evt) {
 			isBarPress = false;
 			overEdge = false;
 			up = false;
 			dw = false;
 			lf = false;
 			rg = false;
-			this.x1 = this.shadow.getElementById('container');
-			console.log(this.x1);
 		};
 
-		onmousemove = function(evt) {
+		this.onmousemove = function(evt) {
 			if (isBarPress) {
 				let actX = evt.clientX;
 				let actY = evt.clientY;
@@ -313,7 +311,7 @@ class pageEditor extends HTMLElement {
 				antX = actX;
 				antY = actY;
 
-				let newDiv = this.shadow.getElementById('container');
+				let newDiv = this.x1;
 				let position = getPosition(newDiv);
 
 				newDiv.style.top = (position[0] + difY) + 'px';
@@ -340,8 +338,7 @@ class pageEditor extends HTMLElement {
 				antX = actX;
 				antY = actY;
 
-				let newDiv = this.shadow.getElementById('container');
-				console.log(this.x1);
+				let newDiv = this.x1;
 
 				let dimension = getDimensions(newDiv);
 				let position = getPosition(newDiv);
@@ -423,7 +420,17 @@ class pageEditor extends HTMLElement {
 	}
 
 	connectedCallback() {
-
+		this.x1 = this.shadow.getElementById('container');
+		this.x2 = this.shadow.getElementById('top-bar');
+		this.x3 = this.shadow.getElementById('top');
+		this.x4 = this.shadow.getElementById('down');
+		this.x5 = this.shadow.getElementById('left');
+		this.x6 = this.shadow.getElementById('right');
+		this.x7 = this.shadow.getElementById('redbtn');
+		this.x8 = this.shadow.getElementById('maxbtn');
+		this.x9 = this.shadow.getElementById('minbtn');
+		let x10 = this.shadow.getElementById('container');
+		console.log(x10);
 
 		this.x1.appendChild(this.addObj({type: 'button', id: 'btn1', top: '43%', left: '35.3%',
 			width: '95px', height: '25px', backgroundColor: 'rgba(0, 0, 0, 0.5)', border: 'none',
@@ -445,8 +452,6 @@ class pageEditor extends HTMLElement {
 
 		this.x1.appendChild(this.addObj({type: 'table', id: 'mt', top: '52%', left: '2.4%', width: '95.5%',
 			height: '46%', backgroundColor: 'rgba(0, 0, 0, 0.3)', borderRadius: '2px', border: 'none'}));
-
-		console.log(this.x1);
 
 	}
 
@@ -473,4 +478,6 @@ class pageEditor extends HTMLElement {
 }
 
 
-window.customElements.define('pg-editor', pageEditor);
+window.customElements.define('pg-editor', PageEditor);
+
+let a = new PageEditor();
