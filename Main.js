@@ -96,10 +96,10 @@ class pageEditor extends HTMLElement {
 		right.id = 'right';
 		right.style.position = 'absolute';
 		right.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-		right.style.width = '99%';
-		right.style.height = '10px';
-		right.style.top = '100%';
-		right.style.left = '0.5%';
+		right.style.width = '10px';
+		right.style.height = '105%';
+		right.style.top = '-2%';
+		right.style.left = '99.3%';
 
 		this.shadow.appendChild(container);
 		container.appendChild(topbar);
@@ -120,6 +120,8 @@ class pageEditor extends HTMLElement {
 		this.x7 = this.shadow.getElementById('redbtn');
 		this.x8 = this.shadow.getElementById('maxbtn');
 		this.x9 = this.shadow.getElementById('minbtn');
+
+		/*console.log(this.x1, this.x2, this.x3, this.x4, this.x5, this.x6, this.x7, this.x8, this.x9);*/
 
 		let isBarPress, antX, antY, overEdge, up, dw, lf, rg, isMax = false, isHidden = false, top, left, width, height, lastHeight;
 
@@ -167,7 +169,7 @@ class pageEditor extends HTMLElement {
 
 		this.x9.onclick = () => {
 			if (!isHidden){
-				for (let elements of x1.children) {
+				for (let elements of this.x1.children) {
 					console.log(elements.id === 'top-bar');
 					if (elements.id === 'top-bar')
 						continue;
@@ -271,8 +273,8 @@ class pageEditor extends HTMLElement {
 
 		this.x6.onmousedown = evt => {
 			overEdge = true;
-			let i = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('top'));
-			let j = parseInt(document.defaultView.getComputedStyle(x1, null).getPropertyValue('height'));
+			let i = parseInt(document.defaultView.getComputedStyle(this.x1, null).getPropertyValue('top'));
+			let j = parseInt(document.defaultView.getComputedStyle(this.x1, null).getPropertyValue('height'));
 
 			if (evt.clientY < i + 10 && evt.clientY > i - 10)
 				up = true;
@@ -291,14 +293,17 @@ class pageEditor extends HTMLElement {
 			antY = evt.clientY;
 		};
 
-		onmouseup = function(evt) {
+		this.x1.onmouseup = function(evt) {
 			isBarPress = false;
 			overEdge = false;
 			up = false;
 			dw = false;
 			lf = false;
 			rg = false;
+			this.x1 = this.shadow.getElementById('container');
+			console.log(this.x1);
 		};
+
 		onmousemove = function(evt) {
 			if (isBarPress) {
 				let actX = evt.clientX;
@@ -308,7 +313,7 @@ class pageEditor extends HTMLElement {
 				antX = actX;
 				antY = actY;
 
-				let newDiv = x1;
+				let newDiv = this.shadow.getElementById('container');
 				let position = getPosition(newDiv);
 
 				newDiv.style.top = (position[0] + difY) + 'px';
@@ -335,7 +340,8 @@ class pageEditor extends HTMLElement {
 				antX = actX;
 				antY = actY;
 
-				let newDiv = x1;
+				let newDiv = this.shadow.getElementById('container');
+				console.log(this.x1);
 
 				let dimension = getDimensions(newDiv);
 				let position = getPosition(newDiv);
@@ -417,28 +423,30 @@ class pageEditor extends HTMLElement {
 	}
 
 	connectedCallback() {
-		let container = this.shadow.getElementById('container');
 
-		container.appendChild(this.addObj({type: 'button', id: 'btn1', top: '43%', left: '35.3%',
+
+		this.x1.appendChild(this.addObj({type: 'button', id: 'btn1', top: '43%', left: '35.3%',
 			width: '95px', height: '25px', backgroundColor: 'rgba(0, 0, 0, 0.5)', border: 'none',
 			textContent: 'Enter', fontFamily: 'Berlin Sans FB', borderRadius: '2px'}));
 
-		container.appendChild(this.addObj({type: 'div', id: 'txtf1', textContent: 'Nombre: ',
+		this.x1.appendChild(this.addObj({type: 'div', id: 'txtf1', textContent: 'Nombre: ',
 			top: '45px', left: '10px', fontSize: 'larger', fontFamily: 'Berlin Sans FB'}));
-		container.appendChild(this.addObj({type: 'div', id: 'txtf2', textContent: 'Apellido: ',
+		this.x1.appendChild(this.addObj({type: 'div', id: 'txtf2', textContent: 'Apellido: ',
 			top: '85px', left: '10px', fontSize: 'larger', fontFamily: 'Berlin Sans FB'}));
-		container.appendChild(this.addObj({type: 'div', id: 'txtf3', textContent: 'Cédula: ',
+		this.x1.appendChild(this.addObj({type: 'div', id: 'txtf3', textContent: 'Cédula: ',
 			top: '125px', left: '10px', fontSize: 'larger', fontFamily: 'Berlin Sans FB'}));
 
-		container.appendChild(this.addObj({type: 'input', id: 'field1', top: '43px', left: '85px',
+		this.x1.appendChild(this.addObj({type: 'input', id: 'field1', top: '43px', left: '85px',
 			width: '200px', height: '20px', fontSize: 'larger', fontFamily: 'Berlin Sans FB'}));
-		container.appendChild(this.addObj({type: 'input', id: 'field2', top: '83px', left: '85px',
+		this.x1.appendChild(this.addObj({type: 'input', id: 'field2', top: '83px', left: '85px',
 			width: '200px', height: '20px', fontSize: 'larger', fontFamily: 'Berlin Sans FB'}));
-		container.appendChild(this.addObj({type: 'input', id: 'field3', top: '123px', left: '85px',
+		this.x1.appendChild(this.addObj({type: 'input', id: 'field3', top: '123px', left: '85px',
 			width: '200px', height: '20px', fontSize: 'larger', fontFamily: 'Berlin Sans FB'}));
 
-		container.appendChild(this.addObj({type: 'table', id: 'mt', top: '52%', left: '2.4%', width: '95.5%',
+		this.x1.appendChild(this.addObj({type: 'table', id: 'mt', top: '52%', left: '2.4%', width: '95.5%',
 			height: '46%', backgroundColor: 'rgba(0, 0, 0, 0.3)', borderRadius: '2px', border: 'none'}));
+
+		console.log(this.x1);
 
 	}
 
