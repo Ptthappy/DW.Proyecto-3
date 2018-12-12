@@ -313,11 +313,10 @@ class PageEditor extends HTMLElement {
 		};
 
 		onmousemove = function(evt) {
-			console.log('culo2');
+
 		};
 
 		this.onmousemove = function(evt) {
-			console.log('culo');
 			if (isBarPress) {
 				let actX = evt.clientX;
 				let actY = evt.clientY;
@@ -440,8 +439,6 @@ class PageEditor extends HTMLElement {
 		this.x7 = this.shadow.getElementById('redbtn');
 		this.x8 = this.shadow.getElementById('maxbtn');
 		this.x9 = this.shadow.getElementById('minbtn');
-		let x10 = this.shadow.getElementById('container');
-		console.log(x10);
 
 		this.x1.appendChild(this.addObj({type: 'button', id: 'btn1', top: '43%', left: '35.3%',
 			width: '95px', height: '25px', backgroundColor: 'rgba(0, 0, 0, 0.5)', border: 'none',
@@ -490,5 +487,3 @@ class PageEditor extends HTMLElement {
 
 
 window.customElements.define('pg-editor', PageEditor);
-
-let a = new PageEditor();
